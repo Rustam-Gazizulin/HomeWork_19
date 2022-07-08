@@ -1,7 +1,7 @@
 from dao.model.user import User
 
 
-class UserDao:
+class UserDAO:
     def __init__(self, session):
         self.session = session
 
