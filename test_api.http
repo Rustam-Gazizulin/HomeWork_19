@@ -33,7 +33,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:10001/genres/1
+GET http://127.0.0.1:10001/genres/19
 Accept: application/json
 
 ###
@@ -103,4 +103,23 @@ Content-Type: application/json
   "username": "test1",
   "password": "test2",
   "role": "test3"
+}
+
+###
+
+POST http://127.0.0.1:10001/genres/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "test1 genre"
+}
+###
+
+PUT http://127.0.0.1:10001/genres/19
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "test1"
 }
