@@ -1,4 +1,8 @@
+import base64
+import hashlib
+
 from dao.user import UserDAO
+from constants import PWD_HASH_SALT, PWD_HASH_ITERATION
 
 
 class UserService:
@@ -20,3 +24,11 @@ class UserService:
 
     def delete(self, uid):
         self.dao.delete(uid)
+
+    def get_password_hash(self, password):
+        return base64.b64encode(hashlib.pbkdf2_hmac(
+            'sha256',
+            password.encode('utf-8'),
+            PWD_HASH_SALT,
+            PWD_HASH_ITERATION
+        ))

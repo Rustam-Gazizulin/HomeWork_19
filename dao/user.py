@@ -12,10 +12,21 @@ class UserDAO:
         return self.session.query(User).all()
 
     def create(self, user_data):
-        pass
+        ent = User(**user_data)
+        self.session.add(ent)
+        self.session.commit()
+        return ent
 
     def delete(self, uid):
-        pass
+        user = self.get_one(uid)
+        self.session.delete(user)
+        self.session.commit()
 
     def update(self, user_data):
-        pass
+        user = self.get_one(user_data.get("id"))
+        user.username = user_data.get("username")
+        user.password = user_data.get("password")
+        user.role = user_data.get("role")
+
+        self.session.add(user)
+        self.session.commit()
