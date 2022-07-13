@@ -5,11 +5,11 @@ from dao.model.user import UserSchema
 from implemented import user_service
 
 
-user_ns = Namespace('user')
+user_ns = Namespace('users')
 
 
 @user_ns.route('/')
-class UserView(Resource):
+class UsersView(Resource):
     def get(self):
         rs = user_service.get_all()
         res = UserSchema(many=True).dump(rs)
@@ -34,3 +34,7 @@ class UserView(Resource):
             req_json['id'] = uid
         user_service.update(req_json)
         return '', 204
+
+    def delete(self, uid):
+        user_service.delete(uid)
+        return "user delete", 204

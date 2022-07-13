@@ -13,17 +13,18 @@ class UserService:
     def get_one(self, uid):
         return self.dao.get_one(uid)
 
-    def get_by_username(self):
+    def get_by_username(self, username):
         return self.dao.get_by_username(username)
 
     def get_all(self):
         return self.dao.get_all()
 
-    def create(self, user_data):
-        return self.dao.create(user_data)
+    def create(self, user_d):
+        user_d['password'] = self.get_password_hash(user_d['password'])
+        return self.dao.create(user_d)
 
-    def update(self, user_data):
-        self.dao.update(user_data)
+    def update(self, user_d):
+        self.dao.update(user_d)
         return self.dao
 
     def delete(self, uid):
@@ -37,5 +38,8 @@ class UserService:
             PWD_HASH_ITERATION
         ))
 
-    def compare_password(self, password, password_hash):
+    def compare_passwords(self, password, password_hash):
+        string_hash1 = password_hash
+        string_hash2 = self.get_password_hash(password)
+        print(string_hash1, string_hash2)
         return hmac.compare_digest(base64.b64decode(password_hash), base64.b64decode(self.get_password_hash(password)))

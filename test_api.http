@@ -28,7 +28,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:10001/genres/
+GET http://127.0.0.1:10001/users/
 Accept: application/json
 
 ###
@@ -95,7 +95,7 @@ DELETE http://127.0.0.1:10001/movies/21
 
 ###
 
-POST http://127.0.0.1:10001/user/
+POST http://127.0.0.1:10001/users/
 Accept: application/json
 Content-Type: application/json
 
@@ -123,3 +123,43 @@ Content-Type: application/json
 {
   "name": "test1"
 }
+
+###
+
+POST http://127.0.0.1:10001/users/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "Test1",
+  "password": "Parol1",
+  "role": "Admin1"
+}
+
+###
+
+POST http://127.0.0.1:10001/auth/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "Test1",
+  "password": "Parol1"
+}
+
+###
+
+PUT http://127.0.0.1:10001/auth/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "refresh_token": "test111",
+  "password": "test222"
+}
+
+###
+
+DELETE http://127.0.0.1:10001/users/9
+
+###

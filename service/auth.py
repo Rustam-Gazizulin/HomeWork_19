@@ -17,22 +17,25 @@ class AuthService:
             return False
 
         if not is_refresh:
-            if not self.user_service.compare_password(user.password, password):
+            if not self.user_service.compare_passwords(password, user.password):
                 return False
 
         data = {
-            'username': user.username,
-            'role': user.role
+            "username": user.username,
+            "role": user.role
         }
+
+        #  access_token on 30 min
         min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
         data['exp'] = calendar.timegm(min30.timetuple())
         access_token = jwt.encode(data, JWT_SECRET, algorithm=JWT_ALG)
 
-        days30 = datetime.datetime.utcnow() + datetime.timedelta(days=30)
-        data['exp'] = calendar.timegm(days30.timetuple())
+        #  refresh_token on 30 days
+        day30 = datetime.datetime.utcnow() + datetime.timedelta(days=30)
+        data['exp'] = calendar.timegm(day30.timetuple())
         refresh_token = jwt.encode(data, JWT_SECRET, algorithm=JWT_ALG)
 
-        return {'access_token': access_token, 'refresh_token': refresh_token}
+        return {"access_token": access_token, "refresh_token": refresh_token}
 
     def approve_refresh_token(self, refresh_token):
         data = jwt.decode(refresh_token, JWT_SECRET, algorithms=[JWT_ALG])

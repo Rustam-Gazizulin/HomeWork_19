@@ -28,7 +28,7 @@ class AuthView(Resource):
         if tokens:
             return tokens
         else:
-            return 'Failed in request', 400
+            return 'Ошибка получения токенов', 400
 
     def put(self):
         req_json = request.json

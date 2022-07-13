@@ -14,8 +14,8 @@ class UserDAO:
     def get_by_username(self, username):
         return self.session.query(User).filter(User.username == username).one()
 
-    def create(self, user_data):
-        ent = User(**user_data)
+    def create(self, user_d):
+        ent = User(**user_d)
         self.session.add(ent)
         self.session.commit()
         return ent
