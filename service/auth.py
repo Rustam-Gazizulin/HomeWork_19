@@ -7,6 +7,7 @@ from service.user import UserService
 
 
 class AuthService:
+    """Сервис аутентификации пользователей"""
     def __init__(self, user_service: UserService):
         self.user_service = user_service
 

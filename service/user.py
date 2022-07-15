@@ -31,6 +31,7 @@ class UserService:
         self.dao.delete(uid)
 
     def get_password_hash(self, password):
+        """Метод генерации хеша"""
         return base64.b64encode(hashlib.pbkdf2_hmac(
             'sha256',
             password.encode('utf-8'),
@@ -39,7 +40,5 @@ class UserService:
         ))
 
     def compare_passwords(self, password, password_hash):
-        string_hash1 = password_hash
-        string_hash2 = self.get_password_hash(password)
-        print(string_hash1, string_hash2)
+        """Метод для сравнения пароля с его Хэшем"""
         return hmac.compare_digest(base64.b64decode(password_hash), base64.b64decode(self.get_password_hash(password)))

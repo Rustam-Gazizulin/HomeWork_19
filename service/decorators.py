@@ -6,7 +6,7 @@ from constants import JWT_SECRET, JWT_ALG
 
 def auth_requered(func):
     def wrapper(*args, **kwargs):
-        if not "Authorization" in request.headers:
+        if "Authorization" not in request.headers:
             abort(401)
 
         token = request.headers["Authorization"]
@@ -20,9 +20,9 @@ def auth_requered(func):
     return wrapper
 
 
-def admin_requred(func):
+def admin_requered(func):
     def wrapper(*args, **kwargs):
-        if not "Authorization" in request.headers:
+        if "Authorization" not in request.headers:
             abort(401)
 
         token = request.headers["Authorization"]
@@ -32,10 +32,8 @@ def admin_requred(func):
             print(f"JWT decode error: {e}")
             abort(401)
         else:
-            if data["role"] == "admin":
+            if data['role'] == 'admin':
                 return func(*args, **kwargs)
-        abort(401)
-
-        return func(*args, **kwargs)
+        abort(403)
 
     return wrapper

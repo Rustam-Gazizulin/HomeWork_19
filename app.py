@@ -20,7 +20,7 @@ def create_app(config_object):
 
 def register_extensions(app):
     db.init_app(app)
-    #create_data(app, db)
+    # create_data(app, db) #  Временная строка для создания таблицы USER активируется одни раз!!!
     api = Api(app)
     api.add_namespace(director_ns)
     api.add_namespace(genre_ns)
@@ -30,6 +30,7 @@ def register_extensions(app):
 
 
 def create_data(app, db):
+    """Добавление первичных данных в таблицу USER"""
     with app.app_context():
         db.create_all()
         u1 = User(username='Oleg', password='qwerty', role='user')
@@ -41,7 +42,6 @@ def create_data(app, db):
 
 
 app = create_app(Config())
-
 
 if __name__ == '__main__':
     app.run(host="localhost", port=10001, debug=True)

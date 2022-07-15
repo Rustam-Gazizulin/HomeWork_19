@@ -12,6 +12,7 @@ class UserDAO:
         return self.session.query(User).all()
 
     def get_by_username(self, username):
+        """Метод получения пользователя по имени необходим для дальнейше аутентификации пользователя"""
         return self.session.query(User).filter(User.username == username).one()
 
     def create(self, user_d):
